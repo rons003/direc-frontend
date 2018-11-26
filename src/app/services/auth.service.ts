@@ -35,8 +35,12 @@ export class AuthService {
       .pipe(
         map((res: any) => {
           // Returns username, id, token
-          this.saveCurrentUser(res, this.user);
-          return res;
+          if (res.error === 'invalid_credentials') {
+            return 'failed';
+          } else {
+            this.saveCurrentUser(res, this.user);
+            return res;
+          }
         }),
         catchError(this.handleError)
       );
@@ -45,6 +49,24 @@ export class AuthService {
   logout() {
     this.user = null;
     this.clearCurrentUser();
+  }
+
+  getUserInfo(token: any) {
+    const headers = new HttpHeaders({
+      'Accept': 'application/json',
+      'Authorization': 'Bearer ' + token.access_token,
+    });
+
+    const requestUrl = this.authUrl + '/user';
+    const options = { headers: headers };
+    return this.http.get(requestUrl, options)
+      .pipe(
+        map((res: any) => {
+          this.saveCurrentUser(res.access_token, null);
+          return res;
+        }),
+        catchError(this.handleError)
+      );
   }
 
   updateActiveUser(user: User) {

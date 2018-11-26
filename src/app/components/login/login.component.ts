@@ -25,11 +25,12 @@ export class LoginComponent implements OnInit {
       .authService
       .login(this.user.email, this.user.password)
       .subscribe(
-        (user: any) => {
-          console.log(user);
-          // if (user.status_code === 200) {
-          //   this.router.navigate(['employee']);
-          // }
+        (res: any) => {
+          if (res === 'failed') {
+            console.log('error password');
+          } else {
+            this.router.navigate(['employee']);
+          }
         },
         err => console.error('Unsuccessful login: ' + err),
     );

@@ -4,7 +4,7 @@
       List's of Employee
     </div>
     <div class="card-body">
-      <button type="button" class="btn btn-primary" style="margin-bottom: 20px;">Add New</button>
+      <button type="button" class="btn btn-primary" (click)="showModal()" style="margin-bottom: 20px;">Add New</button>
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
@@ -16,18 +16,79 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th>1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+          <tr *ngFor="let employee of employees">
+            <th>{{ employee.id }}</th>
+            <td>{{ employee.lastname }}</td>
+            <td>{{ employee.firstname }}</td>
+            <td>{{ employee.middlename }}</td>
             <td>
               <button type="button" class="btn btn-info">View</button> ||
-              <button type="button" class="btn btn-danger">Delete</button>
+              <button type="button" class="btn btn-danger" (click)="deleteEmployee(employee.id)">Delete</button>
             </td>
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="employee-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <form (ngSubmit)="onSubmit(employee)" #employeeForm="ngForm" novalidate>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Employee Information</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label>Last Name</label>
+                <input type="text" class="form-control" id="lastname" name="lastname" [(ngModel)]="employee.lastname" placeholder="Last Name" required>
+              </div>
+              <div class="form-group">
+                <label>First Name</label>
+                <input type="text" class="form-control" id="firstname" name="firstname" [(ngModel)]="employee.firstname" placeholder="First Name" required>
+              </div>
+              <div class="form-group">
+                <label>Middle Name</label>
+                <input type="text" class="form-control" id="middlename" name="middlename" [(ngModel)]="employee.middlename"  placeholder="Middle Name" required>
+              </div>
+              <div class="form-group">
+                <label>Contact No.</label>
+                <input type="number" class="form-control" id="contact_number" name="contact_number" [(ngModel)]="employee.contact_number">
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" id="email" name="email" [(ngModel)]="employee.email" placeholder="Email">
+              </div>
+              <div class="form-group">
+                <label>Address</label>
+                <input type="text" class="form-control" id="address" name="address" [(ngModel)]="employee.address" placeholder="Address">
+              </div>
+              <div class="form-group">
+                <label>Choose Gender:</label>
+                <select class="form-control" id="gender" name="gender" [(ngModel)]="employee.gender">
+                  <option [value]="0">MALE</option>
+                  <option [value]="1">FEMALE</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label>National</label>
+                <input type="text" class="form-control" id="national" name="national" [(ngModel)]="employee.national">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" [disabled]="!employeeForm.form.valid">Submit</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
