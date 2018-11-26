@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { EmployeeService } from '../../services/employee.service';
 import { AuthService } from '../../services/auth.service';
 import { Employee } from '../../model/employee.model';
-import swal from 'sweetalert2'
+import swal from 'sweetalert2';
 
 declare var $: any; // jQuery
 
@@ -97,7 +97,7 @@ export class EmployeeComponent implements OnInit {
   deleteEmployee(id: any) {
     swal({
       title: 'Are you sure?',
-      text: "You won't be able to revert this!",
+      text: 'You won t be able to revert this!',
       type: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
