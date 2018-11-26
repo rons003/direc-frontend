@@ -4,7 +4,7 @@
       List's of Employee
     </div>
     <div class="card-body">
-      <button type="button" class="btn btn-primary" (click)="showModal()" style="margin-bottom: 20px;">Add New</button>
+      <button type="button" class="btn btn-primary" (click)="createNew()" style="margin-bottom: 20px;">Add New</button>
       <table class="table table-bordered table-striped">
         <thead>
           <tr>
@@ -22,7 +22,7 @@
             <td>{{ employee.firstname }}</td>
             <td>{{ employee.middlename }}</td>
             <td>
-              <button type="button" class="btn btn-info">View</button> ||
+              <button type="button" class="btn btn-info" (click)="viewEmployee(employee.id)">View</button> ||
               <button type="button" class="btn btn-danger" (click)="deleteEmployee(employee.id)">Delete</button>
             </td>
           </tr>
@@ -35,7 +35,7 @@
 <div class="modal fade" id="employee-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
-      <form (ngSubmit)="onSubmit(employee)" #employeeForm="ngForm" novalidate>
+      <form (ngSubmit)="onSubmit()" #employeeForm="ngForm" novalidate>
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">Employee Information</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">

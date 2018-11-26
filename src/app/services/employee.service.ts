@@ -47,6 +47,25 @@ export class EmployeeService {
       );
   }
 
+  getEmployee(id: any): Observable<Employee> {
+
+    const headers = new HttpHeaders(
+      {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer ' + this.token
+      }
+    );
+    const options = { headers: headers };
+    const requestUrl = this.employeeUrl + '/employee/' + id;
+    return this.http.get(requestUrl, options)
+      .pipe(
+        map((data: any) => {
+          return data['employee'];
+        }),
+        catchError(this.handleError)
+      );
+  }
+
   getAllEmployee(): Observable<Employee[]> {
 
     const headers = new HttpHeaders(
@@ -62,6 +81,36 @@ export class EmployeeService {
         map((data: any) => {
           return data['employee'];
         }),
+        catchError(this.handleError)
+      );
+  }
+
+  updateEmployee(employee: Employee): Observable<string> {
+    const headers = new HttpHeaders(
+      {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.token
+      }
+    );
+
+    const options = { headers: headers };
+    const body = {
+      id: employee.id,
+      lastname: employee.lastname,
+      firstname: employee.firstname,
+      middlename: employee.middlename,
+      contact_number: employee.contact_number,
+      email: employee.email,
+      address: employee.address,
+      gender: employee.gender,
+      national: employee.national
+
+    };
+    const bodyString = JSON.stringify(body);
+    const requestUrl = this.employeeUrl + '/employee/update';
+    return this.http.post(requestUrl, bodyString, options)
+      .pipe(
+        map((res: any) => res),
         catchError(this.handleError)
       );
   }

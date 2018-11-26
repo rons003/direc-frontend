@@ -24,7 +24,7 @@ export class AuthService {
     const body = {
       'grant_type': 'password',
       'client_id': 2,
-      'client_secret': '7uinp8NQmuYys61m7fY1ngywgLHvBR8qjNoPaT8e',
+      'client_secret': 'jbYch72VhCfz3ph9dLYLK6CEIUO0zLeQbt8jcSY3',
       'username': username.toLowerCase(),
       'password': password,
       'scope': ''
